@@ -1,2 +1,2 @@
-# CS247-Project2-Straights
+# Straights
 CS247 Project
