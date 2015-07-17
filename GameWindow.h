@@ -12,6 +12,10 @@
 #include "CardTableModel.h"
 #include "CardTableController.h"
 
+#include "HandView.h"
+#include "HandModel.h"
+#include "HandController.h"
+
 class GameWindow : public Gtk::Window {
 public:
 	GameWindow ();
@@ -24,6 +28,10 @@ private:
 	CardTableModel *tableModel_;
 	CardTableView *tableView_;
 	CardTableController *tableController_;
+
+	HandModel *handModel_;
+	HandView *handView_;
+	HandController *handController_;
 
 	Gtk::Button button;
 

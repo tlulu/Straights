@@ -1,5 +1,3 @@
-#include <sstream>
-
 #include "CardTableView.h"
 
 CardTableView::CardTableView (CardTableModel *model, CardTableController *controller) : Gtk::Table (4, 13, true), 
@@ -9,7 +7,7 @@ CardTableView::CardTableView (CardTableModel *model, CardTableController *contro
 	set_col_spacings (5);
 
 	for (int i=0; i<52; i++) {
-		images_[i] = new Gtk::Image ( "img/nothing.png" );
+		images_[i] = new Gtk::Image ( imgManager_.getBlankCard() );
 	}
 
 	for (int i = 0; i < 52; i++) {
@@ -30,9 +28,7 @@ void CardTableView::update () {
 	for (int i = 0; i < visibleCards.size(); i++) {
 		Card c = visibleCards[i];
 
-		std::ostringstream os;
-		os << "img/" << (c.getSuit()) << "_" << (c.getRank()) << ".png";
-		images_[c.getRank()+c.getSuit()*13] -> set ( os.str() );
+		images_[c.getRank()+c.getSuit()*13] -> set ( imgManager_.getImageForCard (c) );
 	}
 
 	show_all ();

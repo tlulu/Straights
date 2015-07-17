@@ -8,6 +8,7 @@
 #include "CardTableModel.h"
 #include "CardTableController.h"
 #include "Card.h"
+#include "CardImageManager.h"
 
 
 class CardTableView : public Gtk::Table, public Observer{
@@ -21,6 +22,7 @@ private:
 	CardTableController *controller_;
 
 	Gtk::Image *images_[52];
+	CardImageManager imgManager_;
 };
 
 #endif
