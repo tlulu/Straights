@@ -4,7 +4,9 @@
 #include "GameWindow.h"
 #include "Card.h"
 
-GameWindow::GameWindow () : button ("Click me") {
+GameWindow::GameWindow () : length_(480), width_(400) {
+
+	set_default_size (length_, width_);
 
 	tableModel_ = new CardTableModel ();
 	tableController_ = new CardTableController ( tableModel_ );
@@ -18,15 +20,16 @@ GameWindow::GameWindow () : button ("Click me") {
 
 	handModel_ -> subscribe ( handView_ );
 
-	set_default_size (480, 360);
-	add (vBox);
-	
-	button.signal_clicked().connect( sigc::mem_fun( *this, &GameWindow::onButtonClicked ) );
+	gamePanelView_ = new GamePanelView();
+	playerView_ = new PlayerView();
 
+	vBox.add ( *gamePanelView_ );	
 	vBox.add ( *tableView_ );
-	vBox.add ( button );
+	vBox.add ( *playerView_);
 	vBox.add ( *handView_ );
-	
+
+	add (vBox);
+
 	show_all ();
 }
 
@@ -34,11 +37,5 @@ GameWindow::~GameWindow () {
 	delete tableModel_;
 	delete tableController_;
 	delete tableView_;
-}
-
-void GameWindow::onButtonClicked () {
-	Card c (Suit(rand() % 4), Rank(rand() % 13) );
-	tableController_ -> showCard ( c );
-	handController_ -> addCardToHand ( c );
-	//handController_ -> removeCardFromHand (c);
+	delete gamePanelView_;
 }

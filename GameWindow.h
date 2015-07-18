@@ -16,15 +16,18 @@
 #include "HandModel.h"
 #include "HandController.h"
 
+#include "GamePanelView.h"
+#include "PlayerView.h"
+
 class GameWindow : public Gtk::Window {
 public:
 	GameWindow ();
 	virtual ~GameWindow ();
 
-protected:
-	virtual void onButtonClicked ();
-
 private:
+	const int length_;
+	const int width_;
+
 	CardTableModel *tableModel_;
 	CardTableView *tableView_;
 	CardTableController *tableController_;
@@ -33,9 +36,9 @@ private:
 	HandView *handView_;
 	HandController *handController_;
 
-	Gtk::Button button;
-
 	Gtk::VBox vBox;
+	PlayerView *playerView_;
+	GamePanelView *gamePanelView_;
 };
 
 #endif

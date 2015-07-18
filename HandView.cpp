@@ -9,15 +9,24 @@ HandView::HandView ( HandModel *model, HandController *controller ) : model_ (mo
 		buttons_[i] -> set_image (*images_[i]);
 		add (*buttons_[i]);
 
-		buttons_[i]->signal_clicked().connect(sigc::bind<int>(sigc::mem_fun(*this, &HandView::onButtonClick),i));
+		buttons_[i]->signal_clicked().connect(sigc::bind<int>(sigc::mem_fun(*this, &HandView::onHandButtonClick),i));
 	}
 
 	selectedCardImage_.set( imgManager_.getBlankCard () );
 	playButton_.set_label( "play" );
-	selectedCardBox_.add (selectedCardImage_);
-	selectedCardBox_.add (playButton_);
+	discardButton_.set_label( "discard" );
+	rageQuitButton_.set_label( "rage quit" );
 
-	add (selectedCardBox_);
+	playOptionsList_.add (playButton_);
+	playOptionsList_.add (discardButton_);
+	playOptionsList_.add (rageQuitButton_);
+
+	playButton_.signal_clicked().connect( sigc::mem_fun( *this, &HandView::onPlayButtonClick ) );
+	discardButton_.signal_clicked().connect( sigc::mem_fun( *this, &HandView::onDiscardButtonClick ) );
+	rageQuitButton_.signal_clicked().connect( sigc::mem_fun( *this, &HandView::onRageQuitButtonClick ) );
+
+	add (selectedCardImage_);
+	add (playOptionsList_);
 }
 
 HandView::~HandView () {
@@ -29,7 +38,10 @@ HandView::~HandView () {
 }
 
 void HandView::update () {
-	std::vector<Card> hand = model_ -> hand ();
+
+	//std::vector<Card> hand = model_ -> getCurrentPlayerHand();
+
+	std::vector<Card> hand = model_ -> hand();
 	for (int i=0; i<hand.size(); i++) {
 		Card c = hand[i];
 		images_[i] -> set ( imgManager_.getImageForCard(c) );
@@ -48,6 +60,18 @@ void HandView::update () {
 
 }
 
-void HandView::onButtonClick ( int index ) {
+void HandView::onHandButtonClick ( int index ) {
 	controller_ -> selectCardToPlay (index);
+}
+
+void HandView::onPlayButtonClick () {
+	// controller_ -> playHandCard();
+}
+
+void HandView::onDiscardButtonClick () {
+	// controller_ -> discardHandCard();
+}
+
+void HandView::onRageQuitButtonClick () {
+	// controller_ -> rageQuit();
 }

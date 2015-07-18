@@ -12,15 +12,22 @@
 
 class HandView : public Gtk::HBox, public Observer {
 public:
+	//HandView ( GameModel*, GameController* );
 	HandView ( HandModel*, HandController* );
 	virtual ~HandView ();
 
 	void update ();
 
 protected:
-	void onButtonClick ( int );
+	void onHandButtonClick ( int );
+	void onPlayButtonClick ();
+	void onDiscardButtonClick ();
+	void onRageQuitButtonClick ();
 
 private:	
+	//GameModel *model_;
+  //GameController *controller_;
+
 	HandModel *model_;
 	HandController *controller_;
 
@@ -28,9 +35,11 @@ private:
 	Gtk::Button *buttons_[13];
 	CardImageManager imgManager_;
 
-	Gtk::VBox selectedCardBox_;
 	Gtk::Image selectedCardImage_;
+	Gtk::VBox playOptionsList_;
 	Gtk::Button playButton_;
+	Gtk::Button discardButton_;
+	Gtk::Button rageQuitButton_;
 };
 
 #endif
