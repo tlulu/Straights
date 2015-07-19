@@ -65,6 +65,7 @@ public:
 	void refreshWithSeed ( int );
 private:
 	void notify ();
+	void notifyEndRound ();
 
 	std::set<Observer*> views_;
 

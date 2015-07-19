@@ -22,6 +22,7 @@ public:
 	GameWindow ();
 	virtual ~GameWindow ();
 	void update ();
+	void showDialogBox ();
 
 private:
 	const int length_;

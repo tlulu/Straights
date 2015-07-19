@@ -50,6 +50,14 @@ void GameModel::notify () {
 	std::set<Observer*>::iterator i;
 	for ( i = views_.begin(); i != views_.end(); ++i ) {
 		(*i) -> update();
+		(*i) -> showDialogBox();
+	}
+}
+
+void GameModel::notifyEndRound () {
+	std::set<Observer*>::iterator i;
+	for ( i = views_.begin(); i != views_.end(); ++i ) {
+		(*i) -> showDialogBox();
 	}
 }
 
@@ -85,7 +93,7 @@ void GameModel::reset () {
 		players_[i]->refreshPlayer();				// Get the player ready for the next round
 	}
 
-	notify();
+	notifyEndRound();
 }
 
 int GameModel::turnCount() const {

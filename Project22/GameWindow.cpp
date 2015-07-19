@@ -62,3 +62,13 @@ void GameWindow::update () {
 		DialogBox dialogBox( *this, "Game Over", os.str() ); 
 	}
 }
+
+void GameWindow::showDialogBox (){
+	std::cout << "END ROUND" << std::endl;
+	std::ostringstream os;
+	os << "Score for each player:";
+	for ( int i=0; i<4; i++ ){
+		os << " player " << (i+1) << gameModel_ -> scoreForPlayer(i);
+	}
+	DialogBox dialogBox( *this, "Round over", os.str() ); 
+}

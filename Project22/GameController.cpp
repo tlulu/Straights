@@ -67,10 +67,20 @@ void GameController::newGame ( int seed ) {
 	model_ -> refreshWithSeed( seed );
 }
 
+void GameController::endRound () {
+	if ( model_ -> turnCount() == 52 ){
+		std::vector<Player*> players = model_ -> winningPlayers();
+		if ( players.size() == 0 ){
+			model_ -> reset();
+		}
+	}
+}
+
 void GameController::playCard () {
 	if ( model_ -> canPlayCard () ) {
 		model_ -> playCard ();
 		model_ -> nextPlayer ();
+		endRound();
 		computerTurnLoop ();
 	} else {
 		throw IllegalPlayException ();
@@ -85,6 +95,7 @@ void GameController::discardCard () {
 	if ( model_ -> canDiscardCard () ) {
 		model_ -> discardCard ();
 		model_ -> nextPlayer ();
+		endRound();
 		computerTurnLoop ();
 	} else {
 		throw IllegalDiscardException ();
@@ -102,5 +113,6 @@ void GameController::computerTurnLoop () {
 		std::cout << "aaa" << std::endl;
 		model_ -> takeTurnForCurrentPlayer ();
 		model_ -> nextPlayer ();
+		endRound();
 	}
 }
