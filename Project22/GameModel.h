@@ -52,7 +52,11 @@ public:
 
 	// Hand
 	Hand* handForPlayer ( int ) const;
-	//Card selectedCard () const; 
+	Hand* discardedHandForPlayer ( int ) const;
+	bool playerIsComputer ( int ) const;
+
+	bool isGameInProgress () const;
+	void setGameInProgress (bool);
 private:
 	void notify ();
 
@@ -61,13 +65,14 @@ private:
 	int gameSeed_;
 
 	int currentPlayer_;
-	//Card *selectedCard_;
 
 	std::vector<Player*> players_;
 	Deck *deck_;
 	Board *board_;
 
 	Card *currentSelectedCard_;
+
+	bool gameInProgress_;
 };
 
 #endif

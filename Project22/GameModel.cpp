@@ -17,6 +17,8 @@ GameModel::GameModel () {
 	board_ = new Board ();
 
 	currentSelectedCard_ = NULL;
+
+	gameInProgress_ = false;
 }
 
 GameModel::~GameModel () {
@@ -91,7 +93,7 @@ void GameModel::setCurrentPlayer () {
 }
 
 bool GameModel::currentPlayerIsComputer () const {
-	return players_[currentPlayer_] -> playable ();
+	return !players_[currentPlayer_] -> playable ();
 }
 
 void GameModel::takeTurnForCurrentPlayer () {
@@ -182,5 +184,21 @@ Board* GameModel::board () const {
 
 Hand* GameModel::handForPlayer ( int index ) const {
 	return players_[index] -> hand ();
+}
+
+Hand* GameModel::discardedHandForPlayer ( int index ) const {
+	return players_[index] -> discardedHand ();
+}
+
+bool GameModel::playerIsComputer ( int index ) const {
+	return players_[index] -> playable ();
+}
+
+bool GameModel::isGameInProgress () const {
+	return gameInProgress_;
+}
+
+void GameModel::setGameInProgress (bool b) {
+	gameInProgress_ = b;
 }
 

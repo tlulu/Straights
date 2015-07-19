@@ -1,4 +1,5 @@
 #include "GameController.h"
+#include <iostream>
 
 //************************************************************************
 // Base Exception
@@ -45,6 +46,8 @@ void GameController::joinGame ( int index ) {
 }
 
 void GameController::startGame () {
+	model_ -> setGameInProgress (true);
+
 	// shuffle deck
 	model_ -> shuffle ();
 
@@ -88,7 +91,9 @@ void GameController::rageQuit () {
 }
 
 void GameController::computerTurnLoop () {
+	std::cout << "computer" << std::endl;
 	while ( model_ -> currentPlayerIsComputer () ) {
+		std::cout << "aaa" << std::endl;
 		model_ -> takeTurnForCurrentPlayer ();
 		model_ -> nextPlayer ();
 	}

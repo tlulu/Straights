@@ -14,7 +14,7 @@
 #include "CardTableView.h"
 #include "HandView.h"
 #include "GamePanelView.h"
-#include "PlayerView.h"
+#include "PlayersBox.h"
 
 class GameWindow : public Gtk::Window {
 public:
@@ -31,8 +31,9 @@ private:
 	Gtk::VBox container_;
 	CardTableView *tableView_;
 	HandView *handView_;
-	PlayerView *playerView_;
 	GamePanelView *gamePanelView_;
+
+	PlayersBox *playersBox_;
 };
 
 #endif

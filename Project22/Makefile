@@ -5,13 +5,13 @@
 
 CXX = g++
 CXXFLAGS = -Wall -O -g -std=c++0x `pkg-config gtkmm-2.4 --cflags --libs`
-OBJS = main.o Board.o Card.o CardCollection.o Command.o ComputerPlayer.o Deck.o GameModel.o Hand.o HumanPlayer.o Player.o GameController.o HandView.o GamePanelView.o PlayerView.o CardTableView.o GameWindow.o CardImageManager.o
+OBJS = main.o Board.o Card.o CardCollection.o Command.o ComputerPlayer.o Deck.o GameModel.o Hand.o HumanPlayer.o Player.o GameController.o HandView.o GamePanelView.o PlayerView.o CardTableView.o GameWindow.o CardImageManager.o PlayersBox.o
 EXEC = straights
 
 # ****************************************************
 
 $(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS)
+	$(CXX) $(OBJS) $(CXXFLAGS) -o $(EXEC)
 
 
 main.o: main.cpp GameController.h
@@ -39,7 +39,7 @@ Player.o: Player.h Deck.h Card.h Board.h
 
 GameController.o: GameController.h GameModel.h Card.h
 
-GameWindow.o: GameWindow.h CardTableView.h GameModel.h GameController.h Card.h HandView.h GamePanelView.h PlayerView.h
+GameWindow.o: GameWindow.h CardTableView.h GameModel.h GameController.h Card.h HandView.h GamePanelView.h PlayersBox.h
 
 CardTableView.o: CardTableView.h Observer.h GameModel.h GameController.h Card.h CardImageManager.h
 
@@ -47,10 +47,11 @@ CardImageManager.o: CardImageManager.h Card.h
 
 HandView.o: HandView.h Observer.h GameModel.h GameController.h CardImageManager.h
 
-PlayerView.o: PlayerView.h Observer.h GameModel.h GameController.h
+PlayerView.o: PlayerView.h Observer.h GameModel.h GameController.h Hand.h
 
 GamePanelView.o: GamePanelView.h GameModel.h GameController.h
 
+PlayersBox.o: PlayersBox.h GameModel.h GameController.h Observer.h
 
 clean:
 	rm -rf $(OBJS) $(EXEC)

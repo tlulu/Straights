@@ -4,30 +4,41 @@
 #include <gtkmm/box.h>
 #include <gtkmm/button.h>
 #include <gtkmm/frame.h>
+#include <gtkmm/label.h>
 
 #include "Observer.h"
 #include "GameModel.h"
 #include "GameController.h"
+#include "Hand.h"
 
-class PlayerView : public Gtk::HBox, public Observer {
+class PlayerView : public Gtk::Frame, public Observer {
 public:
-  PlayerView ( GameModel*, GameController* );
+  PlayerView ( GameModel*, GameController*, int );
   virtual ~PlayerView ();
 
   void update ();
 
 protected:
-  void onPlayerButtonClick ( int );
+  void onJoinButtonClick ();
 
 private:
-  const int totalPlayers_;  
+  int playerId_;
 
   GameModel *model_;
   GameController *controller_;
   
-  Gtk::Frame *players_[4];
-  Gtk::Label *labels_[4];
-  Gtk::Button *buttons_[4];
+  Gtk::VBox vBox_;
+
+  Gtk::HBox pointsBox_;
+  Gtk::HBox discardsBox_;
+
+  Gtk::Label pLabel_;
+  Gtk::Label pointsLabel_;
+
+  Gtk::Label dLabel_;
+  Gtk::Label discardsLabel_;
+
+  Gtk::Button joinButton_;
 
 };
 
