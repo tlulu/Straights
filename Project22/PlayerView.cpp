@@ -1,43 +1,68 @@
 #include "PlayerView.h"
 #include <sstream>
 
-PlayerView::PlayerView ( GameModel *model, GameController *controller ) : totalPlayers_(4), 
+PlayerView::PlayerView ( GameModel *model, GameController *controller, int id ) : 
                             model_ (model), 
-                            controller_ (controller) {
-                              
-  for ( int i = 0; i < totalPlayers_; i++ ) {
-    std::ostringstream os;
-    os << "Player " << (i+1) ;
+                            controller_ (controller),
+                            playerId_ (id) {
+  
+  std::stringstream ss;
+  ss << playerId_+1;
+  set_label ("Player " + ss.str());
+  set_label_align( Gtk::ALIGN_CENTER, Gtk::ALIGN_TOP );
+  set_shadow_type( Gtk::SHADOW_ETCHED_OUT );
 
-    players_[i] = new Gtk::Frame ();
-    players_[i] -> set_label( os.str() );
-    //labels_[i] = new Gtk::Label ();
-    //players_[i] -> add( *labels_[i] );
-    add ( *players_[i] );
+  add (vBox_);
 
-    //buttons_[i] = new Gtk::Button ();
-    //add (*buttons_[i]);
-    //buttons_[i]->signal_clicked().connect(sigc::bind<int>(sigc::mem_fun(*this, &HandView::onPlayerButtonClick),i));
+  pLabel_.set_text ("0");
+  pointsLabel_.set_text ("points");
+  pointsBox_.add (pLabel_);
+  pointsBox_.add (pointsLabel_);
 
-  }
+  dLabel_.set_text ("0");
+  discardsLabel_.set_text ("discards");
+  discardsBox_.add (dLabel_);
+  discardsBox_.add (discardsLabel_);
+
+  joinButton_.set_label ("Join Game");
+  joinButton_.signal_clicked().connect( sigc::mem_fun( *this, &PlayerView::onJoinButtonClick ) );
+
+  vBox_.add (pointsBox_);
+  vBox_.add (discardsBox_);
+  vBox_.add (joinButton_);
+
 }
 
 PlayerView::~PlayerView () {
-  for ( int i = 0; i < totalPlayers_; i++ ) {
-    delete buttons_[i];
-    delete players_[i];
-    //delete labels_[i];
-  }
+  
 }
 
 void PlayerView::update () {
-  for ( int i = 0; i < totalPlayers_; i++ ) {
-    // update score
-    // update discarded cards
+  if (model_ -> isGameInProgress() || model_ -> playerIsComputer (playerId_)) {
+    joinButton_.hide();
+  }else{
+    joinButton_.show();
+  }
+
+  int points = model_ -> scoreForPlayer (playerId_);
+  Hand *discardedHand = model_ -> discardedHandForPlayer (playerId_);
+  int discardedPoints = discardedHand->size();
+
+  std::stringstream ss;
+  ss << points;
+  pLabel_.set_text (ss.str());
+  ss.str("");
+  ss << discardedPoints;
+  dLabel_.set_text (ss.str());
+
+  if (model_ -> currentPlayer() == playerId_) {
+    set_shadow_type( Gtk::SHADOW_IN );
+  } else {
+    set_shadow_type( Gtk::SHADOW_ETCHED_OUT );
   }
 }
 
-void PlayerView::onPlayerButtonClick ( int index ) {
-  //controller_ -> changeComputerToHuman (index);
+void PlayerView::onJoinButtonClick () {
+  controller_ -> joinGame (playerId_);
 }
 
