@@ -35,6 +35,7 @@ public:
 
 	void joinGame ( int );
 	void startGame ();
+	void newGame ( int );
 
 	void playCard ();
 	void selectCardToPlay ( int );

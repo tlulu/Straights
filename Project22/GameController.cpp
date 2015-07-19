@@ -61,6 +61,10 @@ void GameController::startGame () {
 	computerTurnLoop ();
 }
 
+void GameController::newGame ( int seed ) {
+	model_ -> refreshWithSeed( seed );
+}
+
 void GameController::playCard () {
 	if ( model_ -> canPlayCard () ) {
 		model_ -> playCard ();

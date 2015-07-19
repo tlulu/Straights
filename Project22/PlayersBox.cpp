@@ -5,6 +5,8 @@ PlayersBox::PlayersBox (GameModel* model, GameController *controller) : model_ (
 		players_[i] = new PlayerView ( model_, controller_ , i);
 		add (*players_[i]);
 	}
+
+	show_all();
 }
 
 PlayersBox::~PlayersBox () {

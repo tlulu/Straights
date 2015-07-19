@@ -202,3 +202,27 @@ void GameModel::setGameInProgress (bool b) {
 	gameInProgress_ = b;
 }
 
+void GameModel::refreshWithSeed ( int seed ) {
+		// default seed = 0
+	gameSeed_ = seed;
+
+	// default starting player
+	currentPlayer_ = 0;
+
+	// initialize all players as robots
+	for (int i = 0; i < 4; i ++) {
+		delete players_[i];
+		players_[i] = new ComputerPlayer (i);
+	}
+
+	// Initialize deck and board
+	deck_->reset ();
+	board_->clear ();
+
+	currentSelectedCard_ = NULL;
+
+	gameInProgress_ = false;
+
+	notify ();
+}
+

@@ -15,6 +15,7 @@ GameWindow::GameWindow () : length_(560), width_(500) {
 	gamePanelView_ = new GamePanelView( gameModel_, gameController_ );
 	playersBox_ = new PlayersBox (gameModel_, gameController_);
 
+	gameModel_ -> subscribe (gamePanelView_);
 	gameModel_ -> subscribe ( tableView_ );
 	gameModel_ -> subscribe ( playersBox_ );
 	gameModel_ -> subscribe ( handView_ );
@@ -26,7 +27,13 @@ GameWindow::GameWindow () : length_(560), width_(500) {
 
 	add (container_);
 
-	show_all ();
+	container_.show ();
+	gamePanelView_->show();
+	tableView_->show();
+	playersBox_->show();
+	handView_->show();
+
+	//show_all ();
 }
 
 GameWindow::~GameWindow () {

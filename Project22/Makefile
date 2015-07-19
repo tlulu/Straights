@@ -48,7 +48,7 @@ HandView.o: HandView.h Observer.h GameModel.h GameController.h CardImageManager.
 
 PlayerView.o: PlayerView.h Observer.h GameModel.h GameController.h
 
-GamePanelView.o: GamePanelView.h GameModel.h GameController.h
+GamePanelView.o: GamePanelView.h GameModel.h GameController.h Observer.h
 
 PlayersBox.o: PlayersBox.h GameModel.h GameController.h Observer.h
 

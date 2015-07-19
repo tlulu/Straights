@@ -11,11 +11,7 @@ Deck::Deck () : CardCollection(){
     // Add all cards into deck in order of:
     // CLUBS, DIAMOND, HEART, SPADE
     // AC, 2C ... AD, 2D ... AH, 2H ... AS, 2S ...
-    for(int i=0;i<SUIT_COUNT;i++){
-        for (int j=0;j<RANK_COUNT;j++){
-            addCard (Card (Suit(i), Rank(j)));
-        }
-    }
+    reset ();
 }
 
 // Destructor
@@ -31,6 +27,15 @@ void Deck::shuffle(int seed) {
         int k = (int) (rng() % n);
         --n;
         swapCard(n, k);
+    }
+}
+
+void Deck::reset () {
+    clear ();
+    for(int i=0;i<SUIT_COUNT;i++){
+        for (int j=0;j<RANK_COUNT;j++){
+            addCard (Card (Suit(i), Rank(j)));
+        }
     }
 }
 
