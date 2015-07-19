@@ -4,7 +4,7 @@
 # Variables to control Makefile operation
 
 CXX = g++
-CXXFLAGS = -Wall -O -g `pkg-config gtkmm-2.4 --cflags --libs`
+CXXFLAGS = -Wall -O -g -std=c++0x `pkg-config gtkmm-2.4 --cflags --libs`
 OBJS = main.o Board.o Card.o CardCollection.o Command.o ComputerPlayer.o Deck.o GameModel.o Hand.o HumanPlayer.o Player.o GameController.o HandView.o GamePanelView.o PlayerView.o CardTableView.o GameWindow.o CardImageManager.o
 EXEC = straights
 
