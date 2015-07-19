@@ -5,7 +5,7 @@
 
 CXX = g++
 CXXFLAGS = -Wall -O -g -std=c++0x `pkg-config gtkmm-2.4 --cflags --libs`
-OBJS = main.o Board.o Card.o CardCollection.o Command.o ComputerPlayer.o Deck.o GameModel.o Hand.o HumanPlayer.o Player.o GameController.o HandView.o GamePanelView.o PlayerView.o CardTableView.o GameWindow.o CardImageManager.o
+OBJS = main.o Board.o Card.o CardCollection.o Command.o ComputerPlayer.o Deck.o GameModel.o Hand.o HumanPlayer.o Player.o GameController.o HandView.o GamePanelView.o PlayerView.o CardTableView.o GameWindow.o CardImageManager.o DialogBox.o
 EXEC = straights
 
 # ****************************************************
@@ -44,12 +44,13 @@ CardTableView.o: CardTableView.h Observer.h GameModel.h GameController.h Card.h 
 
 CardImageManager.o: CardImageManager.h Card.h
 
-HandView.o: HandView.h Observer.h GameModel.h GameController.h CardImageManager.h
+HandView.o: HandView.h Observer.h GameModel.h GameController.h CardImageManager.h DialogBox.h
 
 PlayerView.o: PlayerView.h Observer.h GameModel.h GameController.h
 
 GamePanelView.o: GamePanelView.h GameModel.h GameController.h
 
+DialogBox.o: DialogBox.h
 
 clean:
 	rm -rf $(OBJS) $(EXEC)

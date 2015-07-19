@@ -1,6 +1,7 @@
 #include <vector>
 
 #include "HandView.h"
+#include "DialogBox.h"
 
 HandView::HandView ( GameModel *model, GameController *controller ) : model_ (model), controller_ (controller) {
 	for ( int i = 0; i < 13; i++ ) {
@@ -66,7 +67,7 @@ void HandView::onPlayButtonClick () {
 	try {
 		controller_ -> playCard();
 	} catch (const GameController::GameException &e) {
-		//dialogBox_ 
+		DialogBox dialogBox( *dynamic_cast<Gtk::Window *>(this->get_toplevel()), "Error", "Illegal play"); 
 	}
 }
 
@@ -74,7 +75,7 @@ void HandView::onDiscardButtonClick () {
 	try {
 		controller_ -> discardCard();
 	} catch (const GameController::GameException &e) {
-
+		DialogBox dialogBox( *dynamic_cast<Gtk::Window *>(this->get_toplevel()), "Error", "Illegal discard"); 
 	}
 }
 
