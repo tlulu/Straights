@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include "GameWindow.h"
-#include "Card.h"
 
 GameWindow::GameWindow () : length_(560), width_(500) {
 

@@ -13,8 +13,7 @@ EXEC = straights
 $(EXEC): $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS) -o $(EXEC)
 
-
-main.o: main.cpp GameController.h
+main.o: main.cpp GameWindow.h
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
 Board.o: Board.h Card.h
