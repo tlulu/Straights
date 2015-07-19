@@ -55,28 +55,28 @@ void GameController::startGame () {
 	model_ -> setCurrentPlayer ();
 
 	// Player turn
-	while ( model_ -> currentPlayerIsComputer () ) {
-		model_ -> takeTurnForCurrentPlayer ();
-		model_ -> nextPlayer ();
-	}
+	computerTurnLoop ();
 }
 
-void GameController::playCard ( const Card card ) {
-	if ( model_ -> canPlayCard ( card ) ) {
-		model_ -> playCard (card);
+void GameController::playCard () {
+	if ( model_ -> canPlayCard () ) {
+		model_ -> playCard ();
+		model_ -> nextPlayer ();
+		computerTurnLoop ();
 	} else {
 		throw IllegalPlayException ();
 	}
 }
 
-void GameController::selectCardToPlay ( int curCard ){
-	
+void GameController::selectCardToPlay ( int index ){
+	model_ -> setCurrentSelectedCard ( index );
 }
 
-void GameController::discardCard ( const Card card ) {
-	//Card card = model_ -> selectedCard();
-	if ( model_ -> canDiscardCard ( card ) ) {
-		model_ -> discardCard ( card );
+void GameController::discardCard () {
+	if ( model_ -> canDiscardCard () ) {
+		model_ -> discardCard ();
+		model_ -> nextPlayer ();
+		computerTurnLoop ();
 	} else {
 		throw IllegalDiscardException ();
 	}
@@ -84,4 +84,12 @@ void GameController::discardCard ( const Card card ) {
 
 void GameController::rageQuit () {
 	model_ -> changeCurrentPlayerToComputer ();
+	computerTurnLoop ();
+}
+
+void GameController::computerTurnLoop () {
+	while ( model_ -> currentPlayerIsComputer () ) {
+		model_ -> takeTurnForCurrentPlayer ();
+		model_ -> nextPlayer ();
+	}
 }

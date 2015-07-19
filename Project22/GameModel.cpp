@@ -9,12 +9,14 @@ GameModel::GameModel () {
 
 	// initialize all players as robots
 	for (int i = 0; i < 4; i ++) {
-		players_[i] = new ComputerPlayer (i);
+		players_.push_back (new ComputerPlayer (i));
 	}
 
 	// Initialize deck and board
 	deck_ = new Deck ();
 	board_ = new Board ();
+
+	currentSelectedCard_ = NULL;
 }
 
 GameModel::~GameModel () {
@@ -26,6 +28,10 @@ GameModel::~GameModel () {
 	// delete deck and board
 	delete deck_;
 	delete board_;
+
+	if (currentSelectedCard_ != NULL) {
+		delete currentSelectedCard_;
+	}
 }
 
 void GameModel::subscribe ( Observer *view ) {
@@ -47,17 +53,23 @@ void GameModel::changeCurrentPlayerToComputer () {
 	Player *p = players_[currentPlayer_];
 	players_[currentPlayer_] = new ComputerPlayer ( *p );
 	delete p;
+
+	notify ();
 }
 
 void GameModel::changeComputerToHuman ( int index ) {
 	Player *p = players_[index];
 	players_[index] = new HumanPlayer ( *p );
 	delete p;
+
+	notify ();
 }
 
 int GameModel::nextPlayer () {
 	currentPlayer_ ++;
 	currentPlayer_ = currentPlayer_ % 4;
+
+	notify ();
 
 	return currentPlayer_;
 }
@@ -74,6 +86,8 @@ void GameModel::setCurrentPlayer () {
 			currentPlayer_ = i;
 		}
 	}
+
+	notify ();
 }
 
 bool GameModel::currentPlayerIsComputer () const {
@@ -82,28 +96,60 @@ bool GameModel::currentPlayerIsComputer () const {
 
 void GameModel::takeTurnForCurrentPlayer () {
 	players_[currentPlayer_] -> takeTurn ( *deck_, *board_ );
+
+	notify ();
 }
 
-void GameModel::playCard ( const Card card ) {
+void GameModel::playCard () {
+	Card card = *currentSelectedCard_;
 	players_[currentPlayer_] -> play (card, *board_);
+
+	currentSelectedCard_ = NULL;
+	notify ();
 }
 
-void GameModel::discardCard ( const Card card ) {
+void GameModel::discardCard () {
+	Card card = *currentSelectedCard_;
 	players_[currentPlayer_] -> discard (card);
+
+	currentSelectedCard_ = NULL;
+	notify ();
 }
 
-bool GameModel::canPlayCard ( const Card card ) const {
+bool GameModel::canPlayCard () const {
+	if (currentSelectedCard_ == NULL) {
+		return false;
+	}
+	Card card = *currentSelectedCard_;
 	Hand h = players_[currentPlayer_] -> getLegalPlays (*deck_, *board_);
 	return h.hasCard (card);
 }
 
-bool GameModel::canDiscardCard ( const Card card ) const {
+bool GameModel::canDiscardCard () const {
+	if (currentSelectedCard_ == NULL) {
+		return false;
+	}
+	Card card = *currentSelectedCard_;
 	Hand h = players_[currentPlayer_] -> getLegalPlays (*deck_, *board_);
 	return h.size() == 0;
 }
 
+Card* GameModel::currentSelectedCard () const {
+	return currentSelectedCard_;
+}
+
+void GameModel::setCurrentSelectedCard ( int index ) {
+	delete currentSelectedCard_;
+	Card card = players_[currentPlayer_] -> cardInHand ( index );
+	currentSelectedCard_ = new Card (card.getSuit(), card.getRank());
+
+	notify ();
+}
+
 void GameModel::shuffle () {
 	deck_ -> shuffle ( gameSeed_ );
+
+	notify ();
 }
 
 void GameModel::dealCardToPlayers () {
@@ -112,6 +158,8 @@ void GameModel::dealCardToPlayers () {
 			players_[i]->addCard ( deck_->cardAt (13 * i + j) );
 		}
 	}
+
+	notify ();
 }
 
 int GameModel::scoreForPlayer ( int index ) const {
@@ -124,6 +172,8 @@ int GameModel::seed () const {
 
 void GameModel::setSeed ( int seed ) {
 	gameSeed_ = seed;
+
+	notify ();
 }
 
 Board* GameModel::board () const {

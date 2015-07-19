@@ -36,12 +36,14 @@ public:
 	void joinGame ( int );
 	void startGame ();
 
-	void playCard ( const Card );
+	void playCard ();
 	void selectCardToPlay ( int );
-	void discardCard ( const Card );
+	void discardCard ();
 	void rageQuit ();
 
 private:
+	void computerTurnLoop ();
+
 	GameModel *model_;
 };
 

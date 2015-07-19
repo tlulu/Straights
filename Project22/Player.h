@@ -45,6 +45,7 @@ public:
 
 	Hand* hand ();
 	Hand* discardedHand ();
+	Card cardInHand ( int ) const;
 
 	virtual bool playable () const = 0;
 

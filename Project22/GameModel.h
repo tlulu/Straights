@@ -30,12 +30,15 @@ public:
 	void takeTurnForCurrentPlayer ();
 
 	// Card
-	void playCard ( const Card );
-	void discardCard ( const Card );
-	bool canPlayCard ( const Card ) const;
-	bool canDiscardCard ( const Card ) const;
+	void playCard ();
+	void discardCard ();
+	bool canPlayCard () const;
+	bool canDiscardCard () const;
 	void shuffle ();
 	void dealCardToPlayers ();
+
+	Card* currentSelectedCard () const;
+	void setCurrentSelectedCard ( int );
 
 	// Score
 	int scoreForPlayer ( int ) const;
@@ -63,6 +66,8 @@ private:
 	std::vector<Player*> players_;
 	Deck *deck_;
 	Board *board_;
+
+	Card *currentSelectedCard_;
 };
 
 #endif

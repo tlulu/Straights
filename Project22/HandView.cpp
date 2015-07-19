@@ -49,12 +49,12 @@ void HandView::update () {
 		images_[i] -> set ( imgManager_.getBlankCard () );
 	}
 
-	//Card *c = model_->selectedCard();
-	// if (c != NULL) {
-	// 	selectedCardImage_.set ( imgManager_.getImageForCard(*c) );
-	// } else {
-	// 	selectedCardImage_.set ( imgManager_.getBlankCard () );	
-	// }
+	Card *c = model_->currentSelectedCard();
+	if (c != NULL) {
+		selectedCardImage_.set ( imgManager_.getImageForCard(*c) );
+	} else {
+		selectedCardImage_.set ( imgManager_.getBlankCard () );	
+	}
 
 }
 
@@ -63,11 +63,19 @@ void HandView::onHandButtonClick ( int index ) {
 }
 
 void HandView::onPlayButtonClick () {
-	//controller_ -> playCard();
+	try {
+		controller_ -> playCard();
+	} catch (const GameException &e) {
+		//dialogBox_ 
+	}
 }
 
 void HandView::onDiscardButtonClick () {
-	//controller_ -> discardCard();
+	try {
+		controller_ -> discardCard();
+	} catch (const GameException &e) {
+
+	}
 }
 
 void HandView::onRageQuitButtonClick () {

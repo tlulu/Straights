@@ -4,6 +4,7 @@
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
 #include <gtkmm/button.h>
+#include <gtkmm/dialog.h>
 
 #include "Observer.h"
 #include "GameModel.h"
@@ -38,6 +39,8 @@ private:
 	Gtk::Button playButton_;
 	Gtk::Button discardButton_;
 	Gtk::Button rageQuitButton_;
+
+	Gtk::Dialog dialogBox_;
 };
 
 #endif

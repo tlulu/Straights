@@ -106,3 +106,7 @@ Hand* Player::hand () {
 Hand* Player::discardedHand () {
 	return &discardedHand_;
 }
+
+Card Player::cardInHand ( int index ) const {
+	return currentHand_.cardAt (index);
+}
