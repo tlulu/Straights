@@ -37,9 +37,12 @@ int Player::totalScore () const {
 
 // Prepare player for next round
 void Player::refreshPlayer () {
-	totalScore_ += currentScore_;		// Add total score
-	currentScore_ = 0;					// Reset current score
 	discardedHand_.clear ();			// Remove discarded cards
+}
+
+void Player::updateScore () {
+	totalScore_ += currentScore_;
+	currentScore_ = 0;
 }
 
 bool Player::hasCard (const Card& card) const {
