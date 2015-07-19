@@ -54,9 +54,9 @@ void GameWindow::update () {
 	if ( players.size() !=0 ){
 		std::cout << "GAME OVER" << std::endl;
 		std::ostringstream os;
-		os << "Congratulations Players";
-		for ( int i=0; i<players.size(); i++ ){
-			os << " " << players[i]->id()+1;
+		os << "Congratulations Player " << players[0]->id()+1;
+		for ( int i=1; i<players.size(); i++ ){
+			os << " and " << players[i]->id()+1;
 		}
 		os << " You are victorious!";
 		DialogBox dialogBox( *this, "Game Over", os.str() ); 

@@ -1,6 +1,8 @@
 #include "DialogBox.h"
 #include <gtkmm/stock.h>
+#include <gtkmm/main.h>
 #include <iostream>
+#include <stdlib.h>
 
 DialogBox::DialogBox( Gtk::Window & parentWindow, 
                       std::string title, 
@@ -18,6 +20,9 @@ DialogBox::DialogBox( Gtk::Window & parentWindow,
 
   switch(result){
      case Gtk::RESPONSE_OK:
+      if ( title == "Game Over" ){
+        exit(EXIT_SUCCESS);
+      }
       break;  
   }
 }

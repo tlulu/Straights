@@ -80,7 +80,6 @@ std::vector<Player*> GameModel::winningPlayers () {
 				players.push_back(players_[i]);
 			}
 		}
-		//notify();
 	}
 
 	return players;
@@ -89,8 +88,6 @@ std::vector<Player*> GameModel::winningPlayers () {
 void GameModel::reset () {
 	board_ -> clear ();
 	for (int i=0; i<4; i++) {
-		//delete players_[i];
-		//players_[i] = new ComputerPlayer (i);
 		players_[i]->refreshPlayer();				// Get the player ready for the next round
 	}
 
@@ -98,7 +95,7 @@ void GameModel::reset () {
 
 	// Deal card
 	dealCardToPlayers ();
-	std::cout << "AABBCC" << std::endl;
+	
 	// Set current player
 	setCurrentPlayer ();
 
