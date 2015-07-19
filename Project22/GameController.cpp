@@ -67,13 +67,16 @@ void GameController::newGame ( int seed ) {
 	model_ -> refreshWithSeed( seed );
 }
 
-void GameController::endRound () {
+bool GameController::endRound () {
 	if ( model_ -> turnCount() % 52 == 0 ){
 		std::vector<Player*> players = model_ -> winningPlayers();
 		if ( players.size() == 0 ){
 			model_ -> reset();
+		} else {
+			return true;
 		}
 	}
+	return false;
 }
 
 void GameController::playCard () {
@@ -113,6 +116,9 @@ void GameController::computerTurnLoop () {
 		std::cout << "aaa" << std::endl;
 		model_ -> takeTurnForCurrentPlayer ();
 		model_ -> nextPlayer ();
-		endRound();
+		bool end = endRound();
+		if ( end ) {
+			break;
+		}
 	}
 }

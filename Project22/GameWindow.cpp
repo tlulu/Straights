@@ -56,7 +56,7 @@ void GameWindow::update () {
 		std::ostringstream os;
 		os << "Congratulations Players";
 		for ( int i=0; i<players.size(); i++ ){
-			os << " " << players[i]->id();
+			os << " " << players[i]->id()+1;
 		}
 		os << " You are victorious!";
 		DialogBox dialogBox( *this, "Game Over", os.str() ); 
@@ -68,7 +68,7 @@ void GameWindow::showDialogBox (){
 	std::ostringstream os;
 	os << "Score for each player:";
 	for ( int i=0; i<4; i++ ){
-		os << " player " << (i+1) << gameModel_ -> scoreForPlayer(i);
+		os << " player " << (i+1) << ": " << gameModel_ -> scoreForPlayer(i);
 	}
 	DialogBox dialogBox( *this, "Round over", os.str() ); 
 }
