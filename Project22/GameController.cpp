@@ -68,7 +68,7 @@ void GameController::newGame ( int seed ) {
 }
 
 void GameController::endRound () {
-	if ( model_ -> turnCount() == 52 ){
+	if ( model_ -> turnCount() % 52 == 0 ){
 		std::vector<Player*> players = model_ -> winningPlayers();
 		if ( players.size() == 0 ){
 			model_ -> reset();

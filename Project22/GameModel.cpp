@@ -50,7 +50,6 @@ void GameModel::notify () {
 	std::set<Observer*>::iterator i;
 	for ( i = views_.begin(); i != views_.end(); ++i ) {
 		(*i) -> update();
-		(*i) -> showDialogBox();
 	}
 }
 
@@ -147,6 +146,7 @@ bool GameModel::currentPlayerIsComputer () const {
 
 void GameModel::takeTurnForCurrentPlayer () {
 	players_[currentPlayer_] -> takeTurn ( *deck_, *board_ );
+	turnCount_ ++;
 
 	notify ();
 }
