@@ -19,6 +19,8 @@ GameModel::GameModel () {
 	currentSelectedCard_ = NULL;
 
 	gameInProgress_ = false;
+
+	turnCount_ = 0;
 }
 
 GameModel::~GameModel () {
@@ -49,6 +51,45 @@ void GameModel::notify () {
 	for ( i = views_.begin(); i != views_.end(); ++i ) {
 		(*i) -> update();
 	}
+}
+
+std::vector<Player*> GameModel::winningPlayers () {
+	std::vector<Player*> players;
+	Player* minScorePlayer = players_[0];
+	bool allowWin = false;
+	for ( int i=0; i<4; i++ ) {
+		Player* currentPlayer = players_[i];
+		if ( currentPlayer->totalScore () >= 80 ) {
+			allowWin = true;							// Can only win when someone has a score of >= 80
+		}
+		if ( currentPlayer->totalScore () < minScorePlayer->totalScore () ) {
+			minScorePlayer = currentPlayer;				// Keep track of the player with the lowest score
+		}
+	}
+
+	if (allowWin) {
+		for ( int i=0; i<4; i++ ) {
+			if ( players_[i] -> totalScore() == minScorePlayer -> totalScore() ){
+				players.push_back(players_[i]);
+			}
+		}
+		notify();
+	}
+
+	return players;
+}
+
+void GameModel::reset () {
+	board_ -> clear ();
+	for (int i=0; i<4; i++) {
+		players_[i]->refreshPlayer();				// Get the player ready for the next round
+	}
+
+	notify();
+}
+
+int GameModel::turnCount() const {
+	return turnCount_;
 }
 
 void GameModel::changeCurrentPlayerToComputer () {
@@ -107,6 +148,7 @@ void GameModel::playCard () {
 	players_[currentPlayer_] -> play (card, *board_);
 
 	currentSelectedCard_ = NULL;
+	turnCount_++;
 	notify ();
 }
 
@@ -115,6 +157,7 @@ void GameModel::discardCard () {
 	players_[currentPlayer_] -> discard (card);
 
 	currentSelectedCard_ = NULL;
+	turnCount_++;
 	notify ();
 }
 

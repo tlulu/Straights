@@ -1,5 +1,7 @@
 #include "GameController.h"
 #include <iostream>
+#include <gtkmm/main.h>
+#include <vector>
 
 //************************************************************************
 // Base Exception
@@ -61,11 +63,23 @@ void GameController::startGame () {
 	computerTurnLoop ();
 }
 
+void GameController::endRound () {
+	if ( model_ -> turnCount() == 52 ){
+		std::vector<Player*> players = model_ -> winningPlayers();
+		if ( players.size() == 0 ){
+			model_ -> reset();
+		}
+	}
+	else{
+		model_ -> nextPlayer ();
+		computerTurnLoop ();
+	}
+}
+
 void GameController::playCard () {
 	if ( model_ -> canPlayCard () ) {
 		model_ -> playCard ();
-		model_ -> nextPlayer ();
-		computerTurnLoop ();
+		endRound();
 	} else {
 		throw IllegalPlayException ();
 	}
@@ -78,8 +92,7 @@ void GameController::selectCardToPlay ( int index ){
 void GameController::discardCard () {
 	if ( model_ -> canDiscardCard () ) {
 		model_ -> discardCard ();
-		model_ -> nextPlayer ();
-		computerTurnLoop ();
+		endRound();
 	} else {
 		throw IllegalDiscardException ();
 	}
@@ -95,6 +108,7 @@ void GameController::computerTurnLoop () {
 	while ( model_ -> currentPlayerIsComputer () ) {
 		std::cout << "aaa" << std::endl;
 		model_ -> takeTurnForCurrentPlayer ();
+		endRound();
 		model_ -> nextPlayer ();
 	}
 }

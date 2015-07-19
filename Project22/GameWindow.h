@@ -15,11 +15,13 @@
 #include "HandView.h"
 #include "GamePanelView.h"
 #include "PlayersBox.h"
+#include "Observer.h"
 
-class GameWindow : public Gtk::Window {
+class GameWindow : public Gtk::Window, public Observer {
 public:
 	GameWindow ();
 	virtual ~GameWindow ();
+	void update ();
 
 private:
 	const int length_;

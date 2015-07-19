@@ -43,6 +43,7 @@ public:
 
 private:
 	void computerTurnLoop ();
+	void endRound ();
 
 	GameModel *model_;
 };

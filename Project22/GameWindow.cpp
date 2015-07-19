@@ -1,7 +1,10 @@
 #include <gtkmm/stock.h>
 #include <iostream>
+#include <sstream>
+#include <vector>
 
 #include "GameWindow.h"
+#include "DialogBox.h"
 
 GameWindow::GameWindow () : length_(560), width_(500) {
 
@@ -18,6 +21,7 @@ GameWindow::GameWindow () : length_(560), width_(500) {
 	gameModel_ -> subscribe ( tableView_ );
 	gameModel_ -> subscribe ( playersBox_ );
 	gameModel_ -> subscribe ( handView_ );
+	gameModel_ -> subscribe ( this );
 
 	container_.add ( *gamePanelView_ );	
 	container_.add ( *tableView_ );
@@ -36,4 +40,18 @@ GameWindow::~GameWindow () {
 	delete gamePanelView_;
 	delete handView_;
 	delete playersBox_;
+}
+
+void GameWindow::update () {
+	std::vector<Player*> players = gameModel_ -> winningPlayers();
+	if ( players.size() !=0 ){
+		std::cout << "GAME OVER" << std::endl;
+		std::ostringstream os;
+		os << "Congratulations Players";
+		for ( int i=0; i<players.size(); i++ ){
+			os << " " << players[i]->id();
+		}
+		os << " You are victorious!";
+		DialogBox dialogBox( *this, "Game Over", os.str() ); 
+	}
 }

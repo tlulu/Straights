@@ -38,7 +38,7 @@ Player.o: Player.h Deck.h Card.h Board.h
 
 GameController.o: GameController.h GameModel.h Card.h
 
-GameWindow.o: GameWindow.h CardTableView.h GameModel.h GameController.h HandView.h GamePanelView.h PlayerView.h
+GameWindow.o: GameWindow.h CardTableView.h GameModel.h GameController.h HandView.h GamePanelView.h PlayerView.h Observer.h DialogBox.h
 
 CardTableView.o: CardTableView.h Observer.h GameModel.h GameController.h Card.h CardImageManager.h
 

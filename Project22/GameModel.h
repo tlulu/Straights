@@ -20,6 +20,9 @@ public:
 	void subscribe ( Observer* );
 	void unsubscribe ( Observer* );
 
+	void reset();
+	int turnCount() const;
+
 	// Players
 	void changeCurrentPlayerToComputer (); //computerify
 	void changeComputerToHuman ( int );
@@ -28,6 +31,7 @@ public:
 	void setCurrentPlayer ();
 	bool currentPlayerIsComputer () const;
 	void takeTurnForCurrentPlayer ();
+	std::vector<Player*> winningPlayers ();
 
 	// Card
 	void playCard ();
@@ -73,6 +77,8 @@ private:
 	Card *currentSelectedCard_;
 
 	bool gameInProgress_;
+
+	int turnCount_;
 };
 
 #endif
