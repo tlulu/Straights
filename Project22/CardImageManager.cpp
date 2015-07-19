@@ -3,6 +3,7 @@
 #include "CardImageManager.h"
 
 CardImageManager::CardImageManager () {
+	// Initialize the buffers for the cards
 	for ( int i = 0; i < 52; i++ ) {
 		std::ostringstream os;
 		os << "img/" << (i/13) << "_" << (i%13) << ".png";

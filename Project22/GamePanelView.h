@@ -1,6 +1,12 @@
 #ifndef GAMEPANELVIEW_H
 #define GAMEPANELVIEW_H
 
+////////////////////////////////////////////////////////////
+
+// View for starting a new game, and end game
+
+////////////////////////////////////////////////////////////
+
 #include <gtkmm/box.h>
 #include <gtkmm/button.h>
 #include <gtkmm/entry.h>
@@ -17,9 +23,9 @@ public:
   void update ();
 
 protected:
-  void onStartButtonClick ();
-  void onEndButtonClick ();
-  void onNewGameButtonClick ();
+  void onStartButtonClick ();	// Action for start game
+  void onEndButtonClick ();		// Action for end game
+  void onNewGameButtonClick ();	// Action for new game
 
 private:  
   GameModel *model_;

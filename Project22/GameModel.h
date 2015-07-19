@@ -1,6 +1,12 @@
 #ifndef GAMEMODEL_H
 #define GAMEMODEL_H
 
+////////////////////////////////////////////////////////////
+
+// Model for the game using facade pattern
+
+////////////////////////////////////////////////////////////
+
 #include <vector>
 #include <set>
 
@@ -17,57 +23,57 @@ public:
 	GameModel ();
 	virtual ~GameModel ();
 
-	void subscribe ( Observer* );
-	void unsubscribe ( Observer* );
+	void subscribe ( Observer* );	// Subscribe views
+	void unsubscribe ( Observer* );	// Unsubscribe views
 
-	void reset();
-	int turnCount() const;
+	void reset();				// Reset the round
+	int turnCount() const;		// Return the number of turns passed
 
 	// Players
-	void changeCurrentPlayerToComputer (); //computerify
-	void changeComputerToHuman ( int );
-	int nextPlayer ();
-	int currentPlayer () const; 
-	void setCurrentPlayer ();
-	bool currentPlayerIsComputer () const;
-	void takeTurnForCurrentPlayer ();
-	std::vector<Player*> winningPlayers ();
+	void changeCurrentPlayerToComputer (); 		// For ragequits
+	void changeComputerToHuman ( int );			// For join game
+	int nextPlayer ();							// Go to the next player
+	int currentPlayer () const; 				// The the current player
+	void setCurrentPlayer ();					
+	bool currentPlayerIsComputer () const;		// Check if current player is computer
+	void takeTurnForCurrentPlayer ();			// For computer players to take turn
+	std::vector<Player*> winningPlayers ();		// Get all the winners
 
 	// Card
-	void playCard ();
-	void discardCard ();
-	bool canPlayCard () const;
-	bool canDiscardCard () const;
-	void shuffle ();
-	void dealCardToPlayers ();
+	void playCard ();							// Human player plays card
+	void discardCard ();						// Human player discards card
+	bool canPlayCard () const;					// Check if a human player can play card
+	bool canDiscardCard () const;				// Check if a human player can discard card
+	void shuffle ();							// Shuffle the deck
+	void dealCardToPlayers ();					// Deal cards to all players
 
-	Card* currentSelectedCard () const;
-	void setCurrentSelectedCard ( int );
+	Card* currentSelectedCard () const;			// Get the card that is currently selected
+	void setCurrentSelectedCard ( int );		
 
 	// Score
-	int scoreForPlayer ( int ) const;
+	int scoreForPlayer ( int ) const;			// Get the score for a player
 
 	// Seed
-	int seed () const;
+	int seed () const;							// Get the current game seed
 	void setSeed ( int );
 
 	// Board
-	Board* board () const;
+	Board* board () const;						// Get the board
 
 	// Hand
-	Hand* handForPlayer ( int ) const;
-	Hand* discardedHandForPlayer ( int ) const;
-	bool playerIsComputer ( int ) const;
+	Hand* handForPlayer ( int ) const;			// Get the hand for a player
+	Hand* discardedHandForPlayer ( int ) const; // Get the discarded hand for a player
+	bool playerIsComputer ( int ) const;		// Check if a player is computer
 
-	bool isGameInProgress () const;
+	bool isGameInProgress () const;				// Check if the game has started
 	void setGameInProgress (bool);
 
-	void refreshWithSeed ( int );
+	void refreshWithSeed ( int );				// Create a new game with a new seed
 
-	std::string discardedCardForPlayer ( int index ) const;
+	std::string discardedCardForPlayer ( int index ) const; // Return the discarded cards for a player as a string
 private:
-	void notify ();
-	void notifyEndRound ();
+	void notify ();				// notify to update the views
+	void notifyEndRound ();		// notify to show dialog box
 
 	std::set<Observer*> views_;
 

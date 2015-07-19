@@ -10,6 +10,8 @@ GameWindow::GameWindow () : length_(560), width_(500) {
 
 	set_default_size (length_, width_);
 
+
+	// Set up the model, views, and controller
 	gameModel_ = new GameModel ();
 	gameController_ = new GameController ( gameModel_ );
 
@@ -37,7 +39,6 @@ GameWindow::GameWindow () : length_(560), width_(500) {
 	playersBox_->show();
 	handView_->show();
 
-	//show_all ();
 }
 
 GameWindow::~GameWindow () {
@@ -63,8 +64,9 @@ void GameWindow::update () {
 	}
 }
 
+
+// Show dialog box when needed
 void GameWindow::showDialogBox (){
-	//std::cout << "END ROUND" << std::endl;
 	std::string output = "Discards for:\n";
 	for (int i=0; i<4; i++) {
 		std::stringstream ss;

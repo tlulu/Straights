@@ -15,7 +15,7 @@ public:
 	virtual ~HumanPlayer ();								// Destructor
 	HumanPlayer (const Player&);							// Copy contructor
 
-	bool playable () const;
+	bool playable () const;						// Determine if the player can be controlled by human
 
 	void play(Card, Board&);					// Play a card
 	void discard(Card);						// Discards a card

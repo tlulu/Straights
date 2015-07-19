@@ -40,12 +40,14 @@ PlayerView::~PlayerView () {
 }
 
 void PlayerView::update () {
+  // Show/hide the join button
   if (model_ -> isGameInProgress() || model_ -> playerIsComputer (playerId_)) {
     joinButton_.hide();
   }else{
     joinButton_.show();
   }
 
+  // Update points and score
   int points = model_ -> scoreForPlayer (playerId_);
   Hand *discardedHand = model_ -> discardedHandForPlayer (playerId_);
   int discardedPoints = discardedHand->size();
@@ -57,6 +59,7 @@ void PlayerView::update () {
   ss << discardedPoints;
   dLabel_.set_text (ss.str());
 
+  // Indicate which player's turn it is
   if (model_ -> currentPlayer() == playerId_ && model_ -> isGameInProgress() ) {
     set_shadow_type( Gtk::SHADOW_IN );
   } else {

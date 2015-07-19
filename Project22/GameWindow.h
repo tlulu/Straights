@@ -1,6 +1,12 @@
 #ifndef GTKMM_GAMEWINDOW_H
 #define GTKMM_GAMEWINDOW_H
 
+////////////////////////////////////////////////////////////
+
+// Main window for displaying the game
+
+////////////////////////////////////////////////////////////
+
 #include <gtkmm/button.h>
 #include <gtkmm/window.h>
 #include <gtkmm/label.h>
@@ -31,6 +37,7 @@ private:
 	GameModel *gameModel_;
 	GameController *gameController_;
 
+	// Views
 	Gtk::VBox container_;
 	CardTableView *tableView_;
 	HandView *handView_;

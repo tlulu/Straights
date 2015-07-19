@@ -44,6 +44,8 @@ GameController::~GameController () {
 }
 
 void GameController::joinGame ( int index ) {
+
+	// Change the default computer player to human
 	model_ -> changeComputerToHuman ( index );
 }
 
@@ -64,15 +66,20 @@ void GameController::startGame () {
 }
 
 void GameController::newGame ( int seed ) {
+
+	// Restart the game with a new seed
 	model_ -> refreshWithSeed( seed );
 }
 
 bool GameController::endRound () {
+	// Check of the turn count is 52
 	if ( model_ -> turnCount() % 52 == 0 ){
 		std::vector<Player*> players = model_ -> winningPlayers();
+		// Check for any winners
 		if ( players.size() == 0 ){
 			model_ -> reset();
 		} else {
+			// Return true if there is a winner
 			return true;
 		}
 	}
@@ -81,11 +88,13 @@ bool GameController::endRound () {
 
 void GameController::playCard () {
 	if ( model_ -> canPlayCard () ) {
+		// If the player can play this card, play it, and go to the next player
 		model_ -> playCard ();
 		model_ -> nextPlayer ();
 		endRound();
 		computerTurnLoop ();
 	} else {
+		// Otherwise throw exception
 		throw IllegalPlayException ();
 	}
 }
@@ -96,27 +105,31 @@ void GameController::selectCardToPlay ( int index ){
 
 void GameController::discardCard () {
 	if ( model_ -> canDiscardCard () ) {
+		// If the player can discard the card, discard it, and go to the next player
 		model_ -> discardCard ();
 		model_ -> nextPlayer ();
 		endRound();
 		computerTurnLoop ();
 	} else {
+		// Otherwise throw exception
 		throw IllegalDiscardException ();
 	}
 }
 
 void GameController::rageQuit () {
+	// Turn human to computer player
 	model_ -> changeCurrentPlayerToComputer ();
+	// Restart its turn
 	computerTurnLoop ();
 }
 
 void GameController::computerTurnLoop () {
-	std::cout << "computer" << std::endl;
+	// Keep looping as long as its a computer's turn
 	while ( model_ -> currentPlayerIsComputer () ) {
-		std::cout << "aaa" << std::endl;
 		model_ -> takeTurnForCurrentPlayer ();
 		model_ -> nextPlayer ();
 		bool end = endRound();
+		// Break if a winner is found
 		if ( end ) {
 			break;
 		}

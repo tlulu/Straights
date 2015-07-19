@@ -20,3 +20,4 @@ void PlayersBox::update () {
 		players_[i] -> update();
 	}
 }
+

@@ -8,7 +8,7 @@ GameModel::GameModel () {
 	// default starting player
 	currentPlayer_ = 0;
 
-	// initialize all players as robots
+	// initialize all players as robots in the beginning
 	for (int i = 0; i < 4; i ++) {
 		players_.push_back (new ComputerPlayer (i));
 	}
@@ -186,6 +186,7 @@ void GameModel::discardCard () {
 }
 
 bool GameModel::canPlayCard () const {
+	// A player can play card if it has selected a card and the card follows the rules
 	if (currentSelectedCard_ == NULL) {
 		return false;
 	}
@@ -195,6 +196,7 @@ bool GameModel::canPlayCard () const {
 }
 
 bool GameModel::canDiscardCard () const {
+	// A player can discard a card if it has selected a card and the card follows the rules
 	if (currentSelectedCard_ == NULL) {
 		return false;
 	}
@@ -220,6 +222,7 @@ void GameModel::shuffle () {
 }
 
 void GameModel::dealCardToPlayers () {
+	// Each players get 13 cards
 	for (int i=0; i<4; i++) {
 		for (int j=0; j<13; j++) {
 			players_[i]->addCard ( deck_->cardAt (13 * i + j) );
@@ -287,6 +290,8 @@ void GameModel::refreshWithSeed ( int seed ) {
 	currentSelectedCard_ = NULL;
 
 	gameInProgress_ = false;
+
+	turnCount_ = 0;
 
 	notify ();
 }

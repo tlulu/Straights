@@ -34,6 +34,7 @@ void GamePanelView::onStartButtonClick () {
 }
 
 void GamePanelView::onNewGameButtonClick () {
+  // Get the seed in the text box and create a new game, if the seed is invalid, then set it to 0
   std::string s = seed_.get_text();
   std::string::size_type sz; 
   int seed = 0;
@@ -50,6 +51,7 @@ void GamePanelView::onEndButtonClick () {
 }
 
 void GamePanelView::update () {
+  // Change start game/ new game button based on if the game is in progress or not
   if ( model_ -> isGameInProgress () ) {
     newGameButton_.show();
     startButton_.hide();

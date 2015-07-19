@@ -1,3 +1,12 @@
+#ifndef PLAYERSBOX_H
+#define PLAYERSBOX_H
+
+////////////////////////////////////////////////////////////
+
+// View for displaying all four players
+
+////////////////////////////////////////////////////////////
+
 #include <gtkmm/box.h>
 
 #include "PlayerView.h"
@@ -15,5 +24,7 @@ private:
 	GameModel *model_;
 	GameController *controller_;
 
-	PlayerView *players_[4];
+	PlayerView *players_[4];		// Array of 4 players
 };
+
+#endif

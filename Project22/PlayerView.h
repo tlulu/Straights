@@ -1,6 +1,12 @@
 #ifndef PLAYERVIEW_H
 #define PLAYERVIEW_H
 
+////////////////////////////////////////////////////////////
+
+// View for displaying a player
+
+////////////////////////////////////////////////////////////
+
 #include <gtkmm/box.h>
 #include <gtkmm/button.h>
 #include <gtkmm/frame.h>
@@ -19,7 +25,7 @@ public:
   void update ();
 
 protected:
-  void onJoinButtonClick ();
+  void onJoinButtonClick ();  // Allow player to join
 
 private:
   int playerId_;

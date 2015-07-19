@@ -66,6 +66,7 @@ void HandView::onHandButtonClick ( int index ) {
 }
 
 void HandView::onPlayButtonClick () {
+	// Show dialog box if there is an illegal play
 	try {
 		controller_ -> playCard();
 	} catch (const GameController::GameException &e) {
@@ -74,6 +75,7 @@ void HandView::onPlayButtonClick () {
 }
 
 void HandView::onDiscardButtonClick () {
+	// Show dialog box if there is an illegal discard
 	try {
 		controller_ -> discardCard();
 	} catch (const GameController::GameException &e) {

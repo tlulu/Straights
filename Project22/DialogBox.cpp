@@ -20,6 +20,8 @@ DialogBox::DialogBox( Gtk::Window & parentWindow,
 
   switch(result){
      case Gtk::RESPONSE_OK:
+
+     // Exit on game over
       if ( title == "Game Over" ){
         exit(EXIT_SUCCESS);
       }

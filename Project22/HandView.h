@@ -1,6 +1,12 @@
 #ifndef HANDVIEW_H
 #define HANDVIEW_H
 
+////////////////////////////////////////////////////////////
+
+// View for showing the hand of a player
+
+////////////////////////////////////////////////////////////
+
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
 #include <gtkmm/button.h>
@@ -19,10 +25,10 @@ public:
 	void update ();
 
 protected:
-	void onHandButtonClick ( int );
-	void onPlayButtonClick ();
-	void onDiscardButtonClick ();
-	void onRageQuitButtonClick ();
+	void onHandButtonClick ( int );	// Selecting a card
+	void onPlayButtonClick ();		// Play card
+	void onDiscardButtonClick ();	// Discard card
+	void onRageQuitButtonClick ();	// Rage quit
 
 private:	
 	GameModel *model_;

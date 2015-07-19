@@ -1,12 +1,18 @@
 #ifndef _GAMECONTROLLER_
 #define _GAMECONTROLLER_
 
+////////////////////////////////////////////////////////////
+
+// Controller for the game 
+
+////////////////////////////////////////////////////////////
+
 #include "GameModel.h"
 #include "Card.h"
 
 class GameController {
 public:
-	class GameException {									// Base exception from player
+	class GameException {									// Base exception from controller
 	public:
 		GameException ();
 		~GameException ();
@@ -33,18 +39,18 @@ public:
 	GameController ( GameModel* );
 	virtual ~GameController ();
 
-	void joinGame ( int );
-	void startGame ();
-	void newGame ( int );
+	void joinGame ( int );				// Player joins the game
+	void startGame ();					// Game starts
+	void newGame ( int );				// Create new game
 
-	void playCard ();
-	void selectCardToPlay ( int );
-	void discardCard ();
-	void rageQuit ();
+	void playCard ();					// Player plays card
+	void selectCardToPlay ( int );		// Player picked a card
+	void discardCard ();				// Player discards a card
+	void rageQuit ();					// Player rage quits
 
 private:
-	void computerTurnLoop ();
-	bool endRound ();
+	void computerTurnLoop ();			// Computer takes turn
+	bool endRound ();					// Check if a round ended
 
 	GameModel *model_;
 };
