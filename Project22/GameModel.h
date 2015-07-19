@@ -61,6 +61,8 @@ public:
 
 	bool isGameInProgress () const;
 	void setGameInProgress (bool);
+
+	void refreshWithSeed ( int );
 private:
 	void notify ();
 

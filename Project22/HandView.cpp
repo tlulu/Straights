@@ -29,6 +29,8 @@ HandView::HandView ( GameModel *model, GameController *controller ) : model_ (mo
 
 	add (selectedCardImage_);
 	add (playOptionsList_);
+
+	show_all();
 }
 
 HandView::~HandView () {

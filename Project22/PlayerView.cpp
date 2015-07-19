@@ -31,6 +31,8 @@ PlayerView::PlayerView ( GameModel *model, GameController *controller, int id ) 
   vBox_.add (discardsBox_);
   vBox_.add (joinButton_);
 
+  show_all();
+
 }
 
 PlayerView::~PlayerView () {
@@ -55,7 +57,7 @@ void PlayerView::update () {
   ss << discardedPoints;
   dLabel_.set_text (ss.str());
 
-  if (model_ -> currentPlayer() == playerId_) {
+  if (model_ -> currentPlayer() == playerId_ && model_ -> isGameInProgress() ) {
     set_shadow_type( Gtk::SHADOW_IN );
   } else {
     set_shadow_type( Gtk::SHADOW_ETCHED_OUT );

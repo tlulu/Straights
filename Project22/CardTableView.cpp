@@ -14,6 +14,8 @@ CardTableView::CardTableView (GameModel *model, GameController *controller) : Gt
 		attach (*images_[i], i%13, i%13+1, i/13, i/13+1);
 	}
 
+	show_all ();
+
 }
 
 CardTableView::~CardTableView () {
@@ -23,12 +25,14 @@ CardTableView::~CardTableView () {
 }
 
 void CardTableView::update () {
+	for (int i=0; i<52; i++) {
+		images_[i] -> set ( imgManager_.getBlankCard() );
+	}
+	
 	Board *board = model_ -> board ();
 	for (int i = 0; i < board -> size(); i++) {
 		Card c = board -> cardAt(i);
 
 		images_[c.getRank()+c.getSuit()*13] -> set ( imgManager_.getImageForCard (c) );
 	}
-
-	show_all ();
 }

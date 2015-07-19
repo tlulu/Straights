@@ -15,6 +15,7 @@ public:
 	virtual ~Deck ();									// Destructor
 
 	void shuffle (int);									// Randomly shuffles the deck using a seed
+	void reset ();
 };
 
 std::ostream& operator<< (std::ostream&, const Deck&);	// Output
