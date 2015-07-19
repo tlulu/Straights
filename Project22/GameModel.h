@@ -63,6 +63,8 @@ public:
 	void setGameInProgress (bool);
 
 	void refreshWithSeed ( int );
+
+	std::string discardedCardForPlayer ( int index ) const;
 private:
 	void notify ();
 	void notifyEndRound ();

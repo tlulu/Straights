@@ -1,3 +1,4 @@
+#include <sstream>
 #include "GameModel.h"
 
 GameModel::GameModel () {
@@ -87,10 +88,16 @@ std::vector<Player*> GameModel::winningPlayers () {
 }
 
 void GameModel::reset () {
+
 	board_ -> clear ();
 	for (int i=0; i<4; i++) {
-		//delete players_[i];
-		//players_[i] = new ComputerPlayer (i);
+		players_[i]->updateScore();				// Get the player ready for the next round
+	}
+
+	notify ();
+	notifyEndRound();
+
+	for (int i=0; i<4; i++) {
 		players_[i]->refreshPlayer();				// Get the player ready for the next round
 	}
 
@@ -104,8 +111,6 @@ void GameModel::reset () {
 
 	turnCount_ = 0;
 	currentSelectedCard_ = NULL;
-
-	notifyEndRound();
 }
 
 int GameModel::turnCount() const {
@@ -286,5 +291,11 @@ void GameModel::refreshWithSeed ( int seed ) {
 	gameInProgress_ = false;
 
 	notify ();
+}
+
+std::string GameModel::discardedCardForPlayer ( int index ) const {
+	std::stringstream ss;
+	ss << *(players_[index] -> discardedHand ());
+	return ss.str();
 }
 

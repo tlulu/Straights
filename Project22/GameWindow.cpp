@@ -64,11 +64,13 @@ void GameWindow::update () {
 }
 
 void GameWindow::showDialogBox (){
-	std::cout << "END ROUND" << std::endl;
-	std::ostringstream os;
-	os << "Score for each player:";
-	for ( int i=0; i<4; i++ ){
-		os << " player " << (i+1) << ": " << gameModel_ -> scoreForPlayer(i);
+	//std::cout << "END ROUND" << std::endl;
+	std::string output = "Discards for:\n";
+	for (int i=0; i<4; i++) {
+		std::stringstream ss;
+		ss << i+1;
+		output = output + "\t Player " + ss.str() + ": " + gameModel_ -> discardedCardForPlayer(i) + "\n";
 	}
-	DialogBox dialogBox( *this, "Round over", os.str() ); 
+
+	DialogBox dialogBox( *this, "Round over", output ); 
 }

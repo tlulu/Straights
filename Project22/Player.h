@@ -37,6 +37,7 @@ public:
 	int currentScore () const;									// Player score for current round
 	int totalScore() const;										// Player total score
 	void refreshPlayer ();										// Prepare player for next round
+	void updateScore ();
 	bool hasCard (const Card&) const;							// Check if player has a card
 	void addCard (Card);										// Add card to player's hand
 
