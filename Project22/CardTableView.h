@@ -5,21 +5,21 @@
 #include <gtkmm/image.h>
 
 #include "Observer.h"
-#include "CardTableModel.h"
-#include "CardTableController.h"
+#include "GameModel.h"
+#include "GameController.h"
 #include "Card.h"
 #include "CardImageManager.h"
 
 
 class CardTableView : public Gtk::Table, public Observer{
 public:
-	CardTableView (CardTableModel*, CardTableController*);
+	CardTableView (GameModel*, GameController*);
 	virtual ~CardTableView ();
 
 	void update ();
 private:
-	CardTableModel *model_;
-	CardTableController *controller_;
+	GameModel *model_;
+	GameController *controller_;
 
 	Gtk::Image *images_[52];
 	CardImageManager imgManager_;

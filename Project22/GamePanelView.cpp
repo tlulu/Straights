@@ -1,6 +1,8 @@
 #include "GamePanelView.h"
 
-GamePanelView::GamePanelView () {
+GamePanelView::GamePanelView (GameModel *model, GameController *controller) : 
+                                  model_ (model), 
+                                  controller_ (controller) {
 
   startButton_.set_label( "start" );
   endButton_.set_label( "end" );
@@ -16,9 +18,9 @@ GamePanelView::GamePanelView () {
 GamePanelView::~GamePanelView () {}
 
 void GamePanelView::onStartButtonClick () {
-  // controller_ -> startGame();
+  controller_ -> startGame();
 }
 
 void GamePanelView::onEndButtonClick () {
-  // controller_ -> endGame();
+  //controller_ -> endGame();
 }

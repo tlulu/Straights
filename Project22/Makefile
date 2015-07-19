@@ -4,8 +4,8 @@
 # Variables to control Makefile operation
 
 CXX = g++
-CXXFLAGS = -Wall -g -std=c++0x
-OBJS = main.o Board.o Card.o CardCollection.o Command.o ComputerPlayer.o Deck.o GameModel.o Hand.o HumanPlayer.o Player.o GameController.o
+CXXFLAGS = -Wall -O -g `pkg-config gtkmm-2.4 --cflags --libs`
+OBJS = main.o Board.o Card.o CardCollection.o Command.o ComputerPlayer.o Deck.o GameModel.o Hand.o HumanPlayer.o Player.o GameController.o HandView.o GamePanelView.o PlayerView.o CardTableView.o GameWindow.o CardImageManager.o
 EXEC = straights
 
 # ****************************************************
@@ -29,7 +29,7 @@ ComputerPlayer.o: ComputerPlayer.h Player.h
 
 Deck.o: CardCollection.h Deck.h
 
-GameModel.o: GameModel.h Card.h Player.h HumanPlayer.h ComputerPlayer.h Board.h Deck.h
+GameModel.o: GameModel.h Card.h Player.h HumanPlayer.h ComputerPlayer.h Board.h Deck.h Observer.h
 
 Hand.o: Hand.h CardCollection.h Card.h
 
@@ -38,6 +38,19 @@ HumanPlayer.o: HumanPlayer.h Player.h
 Player.o: Player.h Deck.h Card.h Board.h
 
 GameController.o: GameController.h GameModel.h Card.h
+
+GameWindow.o: GameWindow.h CardTableView.h GameModel.h GameController.h Card.h HandView.h GamePanelView.h PlayerView.h
+
+CardTableView.o: CardTableView.h Observer.h GameModel.h GameController.h Card.h CardImageManager.h
+
+CardImageManager.o: CardImageManager.h Card.h
+
+HandView.o: HandView.h Observer.h GameModel.h GameController.h CardImageManager.h
+
+PlayerView.o: PlayerView.h Observer.h GameModel.h GameController.h
+
+GamePanelView.o: GamePanelView.h GameModel.h GameController.h
+
 
 clean:
 	rm -rf $(OBJS) $(EXEC)

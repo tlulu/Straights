@@ -1,7 +1,10 @@
 #include "PlayerView.h"
 #include <sstream>
 
-PlayerView::PlayerView () : totalPlayers_(4) {
+PlayerView::PlayerView ( GameModel *model, GameController *controller ) : totalPlayers_(4), 
+                            model_ (model), 
+                            controller_ (controller) {
+                              
   for ( int i = 0; i < totalPlayers_; i++ ) {
     std::ostringstream os;
     os << "Player " << (i+1) ;

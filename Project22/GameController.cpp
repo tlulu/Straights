@@ -69,9 +69,14 @@ void GameController::playCard ( const Card card ) {
 	}
 }
 
+void GameController::selectCardToPlay ( int curCard ){
+	
+}
+
 void GameController::discardCard ( const Card card ) {
+	//Card card = model_ -> selectedCard();
 	if ( model_ -> canDiscardCard ( card ) ) {
-		model_ -> discardCard (card);
+		model_ -> discardCard ( card );
 	} else {
 		throw IllegalDiscardException ();
 	}

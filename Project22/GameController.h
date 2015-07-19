@@ -37,7 +37,8 @@ public:
 	void startGame ();
 
 	void playCard ( const Card );
-	void discardCard (const Card );
+	void selectCardToPlay ( int );
+	void discardCard ( const Card );
 	void rageQuit ();
 
 private:

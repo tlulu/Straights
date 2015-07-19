@@ -8,14 +8,11 @@
 #include <gtkmm/table.h>
 #include <gtkmm/image.h>
 
+#include "GameModel.h"
+#include "GameController.h"
+
 #include "CardTableView.h"
-#include "CardTableModel.h"
-#include "CardTableController.h"
-
 #include "HandView.h"
-#include "HandModel.h"
-#include "HandController.h"
-
 #include "GamePanelView.h"
 #include "PlayerView.h"
 
@@ -28,15 +25,12 @@ private:
 	const int length_;
 	const int width_;
 
-	CardTableModel *tableModel_;
+	GameModel *gameModel_;
+	GameController *gameController_;
+
+	Gtk::VBox container_;
 	CardTableView *tableView_;
-	CardTableController *tableController_;
-
-	HandModel *handModel_;
 	HandView *handView_;
-	HandController *handController_;
-
-	Gtk::VBox vBox;
 	PlayerView *playerView_;
 	GamePanelView *gamePanelView_;
 };

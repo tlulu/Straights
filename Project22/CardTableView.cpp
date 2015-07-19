@@ -1,6 +1,6 @@
 #include "CardTableView.h"
 
-CardTableView::CardTableView (CardTableModel *model, CardTableController *controller) : Gtk::Table (4, 13, true), 
+CardTableView::CardTableView (GameModel *model, GameController *controller) : Gtk::Table (4, 13, true), 
 																			model_ (model), 
 																			controller_ (controller) {
 
@@ -23,10 +23,9 @@ CardTableView::~CardTableView () {
 }
 
 void CardTableView::update () {
-
-	std::vector<Card> visibleCards = model_ -> visibleCards ();
-	for (int i = 0; i < visibleCards.size(); i++) {
-		Card c = visibleCards[i];
+	Board *board = model_ -> board ();
+	for (int i = 0; i < board -> size(); i++) {
+		Card c = board -> cardAt(i);
 
 		images_[c.getRank()+c.getSuit()*13] -> set ( imgManager_.getImageForCard (c) );
 	}

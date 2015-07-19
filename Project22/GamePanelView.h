@@ -5,9 +5,12 @@
 #include <gtkmm/button.h>
 #include <gtkmm/textview.h>
 
+#include "GameModel.h"
+#include "GameController.h"
+
 class GamePanelView : public Gtk::HBox {
 public:
-  GamePanelView ();
+  GamePanelView ( GameModel*, GameController* );
   virtual ~GamePanelView ();
 
 protected:
@@ -15,8 +18,8 @@ protected:
   void onEndButtonClick ();
 
 private:  
-  //GameModel *model_;
-  //GameController *controller_;
+  GameModel *model_;
+  GameController *controller_;
 
   Gtk::Button startButton_;
   Gtk::TextView seed_;

@@ -6,13 +6,12 @@
 #include <gtkmm/frame.h>
 
 #include "Observer.h"
-//#include "GameModel.h"
-//#include "GameController.h"
+#include "GameModel.h"
+#include "GameController.h"
 
 class PlayerView : public Gtk::HBox, public Observer {
 public:
-  //PlayerView ( GameModel*, GameController* );
-  PlayerView ();
+  PlayerView ( GameModel*, GameController* );
   virtual ~PlayerView ();
 
   void update ();
@@ -22,8 +21,10 @@ protected:
 
 private:
   const int totalPlayers_;  
-  //GameModel *model_;
-  //GameController *controller_;
+
+  GameModel *model_;
+  GameController *controller_;
+  
   Gtk::Frame *players_[4];
   Gtk::Label *labels_[4];
   Gtk::Button *buttons_[4];

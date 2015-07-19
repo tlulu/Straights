@@ -6,14 +6,13 @@
 #include <gtkmm/button.h>
 
 #include "Observer.h"
-#include "HandModel.h"
-#include "HandController.h"
+#include "GameModel.h"
+#include "GameController.h"
 #include "CardImageManager.h"
 
 class HandView : public Gtk::HBox, public Observer {
 public:
-	//HandView ( GameModel*, GameController* );
-	HandView ( HandModel*, HandController* );
+	HandView ( GameModel*, GameController* );
 	virtual ~HandView ();
 
 	void update ();
@@ -25,18 +24,17 @@ protected:
 	void onRageQuitButtonClick ();
 
 private:	
-	//GameModel *model_;
-  //GameController *controller_;
+	GameModel *model_;
+  GameController *controller_;
 
-	HandModel *model_;
-	HandController *controller_;
+  CardImageManager imgManager_;
 
 	Gtk::Image *images_[13];
-	Gtk::Button *buttons_[13];
-	CardImageManager imgManager_;
-
 	Gtk::Image selectedCardImage_;
+
 	Gtk::VBox playOptionsList_;
+
+	Gtk::Button *buttons_[13];
 	Gtk::Button playButton_;
 	Gtk::Button discardButton_;
 	Gtk::Button rageQuitButton_;

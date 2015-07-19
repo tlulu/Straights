@@ -10,15 +10,15 @@
 #include "Card.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
-//#include "View.h"
+#include "Observer.h"
 
 class GameModel {
 public:
 	GameModel ();
 	virtual ~GameModel ();
 
-	//void subscribe ( View* );
-	//void unsubscribe ( View* );
+	void subscribe ( Observer* );
+	void unsubscribe ( Observer* );
 
 	// Players
 	void changeCurrentPlayerToComputer (); //computerify
@@ -49,14 +49,16 @@ public:
 
 	// Hand
 	Hand* handForPlayer ( int ) const;
+	//Card selectedCard () const; 
 private:
-	//void notify ();
+	void notify ();
 
-	//std::set<View*> views_;
+	std::set<Observer*> views_;
 
 	int gameSeed_;
 
 	int currentPlayer_;
+	//Card *selectedCard_;
 
 	std::vector<Player*> players_;
 	Deck *deck_;

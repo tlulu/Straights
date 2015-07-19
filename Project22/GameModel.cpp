@@ -28,20 +28,20 @@ GameModel::~GameModel () {
 	delete board_;
 }
 
-// void GameModel::subscribe ( View *view ) {
-// 	views_.push_back (view);
-// }
+void GameModel::subscribe ( Observer *view ) {
+	views_.insert (view);
+}
 
-// void GameModel::unsubscribe ( View *view ) {
-// 	views_.erase (view);
-// }
+void GameModel::unsubscribe ( Observer *view ) {
+	views_.erase (view);
+}
 
-// void GameModel::notify () {
-// 	std::set<View*>::iterator i;
-// 	for ( i = observers_.begin(); i != views_.end(); ++i ) {
-// 		(*i) -> update();
-// 	}
-// }
+void GameModel::notify () {
+	std::set<Observer*>::iterator i;
+	for ( i = views_.begin(); i != views_.end(); ++i ) {
+		(*i) -> update();
+	}
+}
 
 void GameModel::changeCurrentPlayerToComputer () {
 	Player *p = players_[currentPlayer_];
@@ -133,3 +133,4 @@ Board* GameModel::board () const {
 Hand* GameModel::handForPlayer ( int index ) const {
 	return players_[index] -> hand ();
 }
+

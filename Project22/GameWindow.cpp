@@ -8,34 +8,33 @@ GameWindow::GameWindow () : length_(480), width_(400) {
 
 	set_default_size (length_, width_);
 
-	tableModel_ = new CardTableModel ();
-	tableController_ = new CardTableController ( tableModel_ );
-	tableView_ = new CardTableView ( tableModel_, tableController_ );
+	gameModel_ = new GameModel ();
+	gameController_ = new GameController ( gameModel_ );
 
-	tableModel_ -> subscribe ( tableView_ );
+	tableView_ = new CardTableView ( gameModel_, gameController_ );
+	handView_ = new HandView ( gameModel_, gameController_ );
+	gamePanelView_ = new GamePanelView( gameModel_, gameController_ );
+	playerView_ = new PlayerView( gameModel_, gameController_ );
 
-	handModel_ = new HandModel ();
-	handController_ = new HandController ( handModel_ );
-	handView_ = new HandView ( handModel_, handController_ );
+	gameModel_ -> subscribe ( tableView_ );
+	gameModel_ -> subscribe ( playerView_ );
+	gameModel_ -> subscribe ( handView_ );
 
-	handModel_ -> subscribe ( handView_ );
+	container_.add ( *gamePanelView_ );	
+	container_.add ( *tableView_ );
+	container_.add ( *playerView_);
+	container_.add ( *handView_ );
 
-	gamePanelView_ = new GamePanelView();
-	playerView_ = new PlayerView();
-
-	vBox.add ( *gamePanelView_ );	
-	vBox.add ( *tableView_ );
-	vBox.add ( *playerView_);
-	vBox.add ( *handView_ );
-
-	add (vBox);
+	add (container_);
 
 	show_all ();
 }
 
 GameWindow::~GameWindow () {
-	delete tableModel_;
-	delete tableController_;
+	delete gameModel_;
+	delete gameController_;
 	delete tableView_;
 	delete gamePanelView_;
+	delete handView_;
+	delete playerView_;
 }

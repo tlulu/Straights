@@ -2,7 +2,7 @@
 
 #include "HandView.h"
 
-HandView::HandView ( HandModel *model, HandController *controller ) : model_ (model), controller_ (controller) {
+HandView::HandView ( GameModel *model, GameController *controller ) : model_ (model), controller_ (controller) {
 	for ( int i = 0; i < 13; i++ ) {
 		images_[i] = new Gtk::Image ( imgManager_.getBlankCard () );
 		buttons_[i] = new Gtk::Button ();
@@ -13,6 +13,7 @@ HandView::HandView ( HandModel *model, HandController *controller ) : model_ (mo
 	}
 
 	selectedCardImage_.set( imgManager_.getBlankCard () );
+	
 	playButton_.set_label( "play" );
 	discardButton_.set_label( "discard" );
 	rageQuitButton_.set_label( "rage quit" );
@@ -34,29 +35,26 @@ HandView::~HandView () {
 		delete images_[i];
 		delete buttons_[i];
 	}
-
 }
 
 void HandView::update () {
 
-	//std::vector<Card> hand = model_ -> getCurrentPlayerHand();
-
-	std::vector<Card> hand = model_ -> hand();
-	for (int i=0; i<hand.size(); i++) {
-		Card c = hand[i];
+	Hand *hand = model_ -> handForPlayer( model_ -> currentPlayer() );
+	for (int i=0; i<hand -> size(); i++) {
+		Card c = hand -> cardAt(i);
 		images_[i] -> set ( imgManager_.getImageForCard(c) );
 	}
 
-	for (int i=hand.size(); i<13; i++) {
+	for (int i = hand -> size(); i<13; i++) {
 		images_[i] -> set ( imgManager_.getBlankCard () );
 	}
 
-	Card *c = model_->selectedCard();
-	if (c != NULL) {
-		selectedCardImage_.set ( imgManager_.getImageForCard(*c) );
-	} else {
-		selectedCardImage_.set ( imgManager_.getBlankCard () );	
-	}
+	//Card *c = model_->selectedCard();
+	// if (c != NULL) {
+	// 	selectedCardImage_.set ( imgManager_.getImageForCard(*c) );
+	// } else {
+	// 	selectedCardImage_.set ( imgManager_.getBlankCard () );	
+	// }
 
 }
 
@@ -65,13 +63,13 @@ void HandView::onHandButtonClick ( int index ) {
 }
 
 void HandView::onPlayButtonClick () {
-	// controller_ -> playHandCard();
+	//controller_ -> playCard();
 }
 
 void HandView::onDiscardButtonClick () {
-	// controller_ -> discardHandCard();
+	//controller_ -> discardCard();
 }
 
 void HandView::onRageQuitButtonClick () {
-	// controller_ -> rageQuit();
+	controller_ -> rageQuit();
 }
