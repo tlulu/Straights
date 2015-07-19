@@ -65,7 +65,7 @@ void HandView::onHandButtonClick ( int index ) {
 void HandView::onPlayButtonClick () {
 	try {
 		controller_ -> playCard();
-	} catch (const GameException &e) {
+	} catch (const GameController::GameException &e) {
 		//dialogBox_ 
 	}
 }
@@ -73,7 +73,7 @@ void HandView::onPlayButtonClick () {
 void HandView::onDiscardButtonClick () {
 	try {
 		controller_ -> discardCard();
-	} catch (const GameException &e) {
+	} catch (const GameController::GameException &e) {
 
 	}
 }
