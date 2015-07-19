@@ -11,10 +11,9 @@ EXEC = straights
 # ****************************************************
 
 $(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS)
+	$(CXX) $(OBJS) $(CXXFLAGS) -o $(EXEC)
 
-
-main.o: main.cpp GameController.h
+main.o: main.cpp GameWindow.h
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
 Board.o: Board.h Card.h
@@ -39,7 +38,7 @@ Player.o: Player.h Deck.h Card.h Board.h
 
 GameController.o: GameController.h GameModel.h Card.h
 
-GameWindow.o: GameWindow.h CardTableView.h GameModel.h GameController.h Card.h HandView.h GamePanelView.h PlayerView.h
+GameWindow.o: GameWindow.h CardTableView.h GameModel.h GameController.h HandView.h GamePanelView.h PlayerView.h
 
 CardTableView.o: CardTableView.h Observer.h GameModel.h GameController.h Card.h CardImageManager.h
 
